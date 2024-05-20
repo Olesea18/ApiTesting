@@ -35,6 +35,8 @@ public class TestReqres {
         Response response = GET(url);
 
         isStatusCodeValid(response, 200);
+
+        isBodyContainsValue(response, "data.first_name", "Janet");
     }
 
     @Test
@@ -49,5 +51,7 @@ public class TestReqres {
         Response response = POST(body, url);
 
         isStatusCodeValid(response, 201);
+
+        isBodyContains(response, "id");
 
     }}

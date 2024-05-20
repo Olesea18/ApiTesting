@@ -6,6 +6,8 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.core.IsEqual.equalTo;
 
 public class Steps {
 
@@ -42,5 +44,15 @@ public class Steps {
         Allure.addAttachment("Response body", response.body().prettyPrint());
 
         return response;
+    }
+
+    @Step
+    public static void isBodyContainsValue(Response response, String key, String expectedResult){
+        response.then().assertThat().body(key, equalTo(expectedResult));
+    }
+
+    @Step
+    public static void isBodyContains(Response response, String expectedResult){
+        response.then().assertThat().body(containsString(expectedResult));
     }
 }
