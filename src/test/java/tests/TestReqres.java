@@ -19,6 +19,7 @@ public class TestReqres {
     @Test
     public void testListUsers(){
 
+        System.out.println("test list");
         String url = "/users?page=2";
 
         Response response = GET(url);
@@ -29,7 +30,7 @@ public class TestReqres {
 
     @Test
     public void testSingleUser(){
-
+        System.out.println("test get");
         String url = "/users/2";
 
         Response response = GET(url);
@@ -41,6 +42,7 @@ public class TestReqres {
 
     @Test
     public void testCreate(){
+        System.out.println("test post");
         String url = "/users";
 
         String body = "{\n" +
@@ -48,10 +50,59 @@ public class TestReqres {
                 "    \"job\": \"leader\"\n" +
                 "}";
 
+
         Response response = POST(body, url);
 
         isStatusCodeValid(response, 201);
 
         isBodyContains(response, "id");
 
-    }}
+    }
+
+    @Test
+    public void testUpdate(){
+        System.out.println("test put");
+        String url = "/users/13";
+
+        String body = "{\n" +
+                "    \"name\": \"neo\",\n" +
+                "    \"job\": \"developer\"\n" +
+                "}";
+
+
+        Response response = PUT(body, url);
+
+        isStatusCodeValid(response, 200);
+    }
+
+    @Test
+    public void testPartialUpdate(){
+        System.out.println("test patch");
+        String url = "/users/9";
+
+        String body = "{\n" +
+                "    \"job\": \"the chosen one\"\n" +
+                "}";
+
+
+        Response response = PATCH(body, url);
+
+        isStatusCodeValid(response, 200);
+
+    }
+    @Test
+    public void testDELETE(){
+        System.out.println("test delete");
+        String url = "/users/2";
+
+
+        Response response = DELETE(url);
+
+        isStatusCodeValid(response, 204);
+
+
+    }
+}
+
+
+
